@@ -65,6 +65,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 int upconvvalue = 0;
 
+QFont fon( "SansSerif", 12, QFont::Bold);
+QFont foff( "SansSerif", 12, QFont::Normal);
+
+QPushButton* iFch;
+
+
+
 QString MainWindow::getNextArgAfter(QString what)
 {
     if(QCoreApplication::arguments().contains(what))
@@ -93,7 +100,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->comboSampRate->setCurrentIndex(4);
         //ui->spinOffset->setValue(100000);
         //ui->spinCenter->setValue(28200000);
-        ui->spinCenter->setValue(ui->spinSlider->value());
+        //ui->spinCenter->setValue(ui->spinSlider->value());
         //this->resize(this->width(),ui->tabWidgetControls->height()+350);
     }
 
@@ -125,6 +132,21 @@ MainWindow::MainWindow(QWidget *parent) :
     modsButtons.append(ui->toggleWFM);
     modsButtons.append(ui->toggleLSB);
     modsButtons.append(ui->toggleUSB);
+
+    modsButtonsF.append(ui->VFOH);
+    modsButtonsF.append(ui->VFOK);
+    modsButtonsF.append(ui->VFOM);
+    modsButtonsF.append(ui->VFOG);
+    modsButtonsF.append(ui->FQH);
+    modsButtonsF.append(ui->FQK);
+    modsButtonsF.append(ui->FQM);
+    modsButtonsF.append(ui->FQG);
+    modsButtonsF.append(ui->OFH);
+    modsButtonsF.append(ui->OFK);
+    modsButtonsF.append(ui->OFM);
+
+    iFch = ui->VFOH;
+
     connect(&tmrRead, SIGNAL(timeout()), this, SLOT(tmrRead_timeout()));
     connect(ui->widgetFFT, SIGNAL(shiftChanged(int)), this, SLOT(on_shiftChanged(int)));
     tmrRead.start(10);
@@ -149,6 +171,18 @@ void MainWindow::untoggleOtherModButtonsThan(QPushButton* pb)
     }
 
     updateFilterBw();
+}
+
+
+void MainWindow::untoggleOtherFbutton(QPushButton* pb)
+{
+    static bool protect;
+    if(protect) return;
+    protect = true;
+    foreach(QPushButton* ipb, modsButtonsF) if(ipb!=pb) ipb->setFont(foff); else pb->setFont(fon);
+    protect = false;
+    iFch = pb;
+
 }
 
 void MainWindow::redirectProcessOutput(QProcess &proc, bool onlyStdErr)
@@ -189,6 +223,42 @@ void MainWindow::on_toggleAM_toggled(bool checked)  { untoggleOtherModButtonsTha
 void MainWindow::on_toggleUSB_toggled(bool checked) { untoggleOtherModButtonsThan(ui->toggleUSB); }
 void MainWindow::on_toggleLSB_toggled(bool checked) { untoggleOtherModButtonsThan(ui->toggleLSB); }
 void MainWindow::on_toggleCW_toggled(bool checked)  { untoggleOtherModButtonsThan(ui->toggleCW); }
+
+
+void MainWindow::on_VFOH_pressed() {untoggleOtherFbutton(ui->VFOH);}
+void MainWindow::on_VFOK_pressed() {untoggleOtherFbutton(ui->VFOK);}
+void MainWindow::on_VFOM_pressed() {untoggleOtherFbutton(ui->VFOM);}
+void MainWindow::on_VFOG_pressed() {untoggleOtherFbutton(ui->VFOG);}
+
+void MainWindow::on_FQH_pressed() {untoggleOtherFbutton(ui->FQH);}
+void MainWindow::on_FQK_pressed() {untoggleOtherFbutton(ui->FQK);}
+void MainWindow::on_FQM_pressed() {untoggleOtherFbutton(ui->FQM);}
+void MainWindow::on_FQG_pressed() {untoggleOtherFbutton(ui->FQG);}
+
+void MainWindow::on_OFH_pressed() {untoggleOtherFbutton(ui->OFH);}
+void MainWindow::on_OFK_pressed() {untoggleOtherFbutton(ui->OFK);}
+void MainWindow::on_OFM_pressed() {untoggleOtherFbutton(ui->OFM);}
+
+
+void MainWindow::on_FP100_pressed(){modF(1,100,iFch);}
+void MainWindow::on_FP10_pressed(){modF(1,10,iFch);}
+void MainWindow::on_FP1_pressed(){modF(1,1,iFch);}
+void MainWindow::on_FM100_pressed(){modF(0,100,iFch);}
+void MainWindow::on_FM10_pressed(){modF(0,10,iFch);}
+void MainWindow::on_FM1_pressed(){modF(0,1,iFch);}
+
+void MainWindow::modF(bool dir, int value, QPushButton* pb){
+    int valori = pb->text().toInt();
+    if(dir){
+        valori+=value;
+        if(valori > 999)valori=0;
+        pb->setText(QString::number(valori));
+    }else{
+        valori-=value;
+        if(valori < 0)valori=0;
+        pb->setText(QString::number(valori));
+    }
+}
 
 void MainWindow::on_shiftChanged(int newOffset)
 {
@@ -397,7 +467,7 @@ void MainWindow::on_RTLGSlider_valueChanged(int val)
 
 }
 
-void MainWindow::on_spinSlider_valueChanged(int val)
+/*void MainWindow::on_spinSlider_valueChanged(int val)
 {
 
     Qt::MouseButtons btns = QApplication::mouseButtons();
@@ -422,12 +492,12 @@ void MainWindow::on_spinSlider_valueChanged(int val)
     //sendCommand(RTLTCP_SET_FREQ, (ui->spinCenter->value()+upconvvalue));
     //procDemod.write("\x01\x05\x55\xa9\x60");
     //procDemod.write("macska\n");
-}
+}*/
 
 void MainWindow::on_spinFreq_valueChanged(int val)
 {
     ui->spinCenter->setValue(ui->spinFreq->value()-ui->spinOffset->value());
-    ui->spinSlider->setValue(ui->spinCenter->value());
+    //ui->spinSlider->setValue(ui->spinCenter->value());
     sendCommand(RTLTCP_SET_FREQ, (ui->spinCenter->value()+upconvvalue));
     //procDemod.write("\x01\x05\x55\xa9\x60");
     //procDemod.write("macska\n");

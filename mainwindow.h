@@ -45,6 +45,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define RTLTCP_SET_AGC_MODE 0x8
 #define RTLTCP_SET_DIRECT_SAMPLING 0x9
 
+
 namespace Ui {
 class MainWindow;
 }
@@ -66,6 +67,29 @@ private slots:
     void on_toggleLSB_toggled(bool checked);
     void on_toggleRun_toggled(bool checked);
     void on_spinFreq_valueChanged(int val);
+
+
+    void on_VFOH_pressed();
+    void on_VFOK_pressed();
+    void on_VFOM_pressed();
+    void on_VFOG_pressed();
+
+    void on_FQH_pressed();
+    void on_FQK_pressed();
+    void on_FQM_pressed();
+    void on_FQG_pressed();
+
+    void on_OFH_pressed();
+    void on_OFK_pressed();
+    void on_OFM_pressed();
+
+    void on_FP100_pressed();
+    void on_FP10_pressed();
+    void on_FP1_pressed();
+    void on_FM100_pressed();
+    void on_FM10_pressed();
+    void on_FM1_pressed();
+
     void tmrRead_timeout();
     void setShift();
     void on_shiftChanged(int newOffset);
@@ -73,7 +97,8 @@ private slots:
     void on_spinOffset_valueChanged(int arg1);
 
     void on_spinCenter_valueChanged(int arg1);
-    void on_spinSlider_valueChanged(int arg1);
+
+
 
     void on_RTLGSlider_valueChanged(int arg1);
 
@@ -90,8 +115,15 @@ private:
     Ui::MainWindow *ui;
     QList<QPushButton*> modsButtons;
     void untoggleOtherModButtonsThan(QPushButton* pb);
+
+    QList<QPushButton*> modsButtonsF;
+    void untoggleOtherFbutton(QPushButton* pb);
+
+    void modF(bool dir, int value, QPushButton* pb);
+
     void sendCommand(unsigned char cmd_num, unsigned value);
     QString getDemodulatorCommand();
+
     void redirectProcessOutput(QProcess &proc, bool onlyStdErr = false);
     void updateFilterBw();
     QString getNextArgAfter(QString what);

@@ -82,8 +82,8 @@
         <widget class="QLabel" name="label">
          <property name="geometry">
           <rect>
-           <x>220</x>
-           <y>140</y>
+           <x>10</x>
+           <y>110</y>
            <width>51</width>
            <height>31</height>
           </rect>
@@ -95,8 +95,8 @@
         <widget class="QPushButton" name="toggleAM">
          <property name="geometry">
           <rect>
-           <x>10</x>
-           <y>100</y>
+           <x>250</x>
+           <y>10</y>
            <width>61</width>
            <height>31</height>
           </rect>
@@ -111,7 +111,7 @@
         <widget class="QLabel" name="label_2">
          <property name="geometry">
           <rect>
-           <x>430</x>
+           <x>10</x>
            <y>140</y>
            <width>61</width>
            <height>31</height>
@@ -124,8 +124,8 @@
         <widget class="QSpinBox" name="spinFreq">
          <property name="geometry">
           <rect>
-           <x>270</x>
-           <y>140</y>
+           <x>460</x>
+           <y>50</y>
            <width>151</width>
            <height>31</height>
           </rect>
@@ -144,7 +144,7 @@
          <property name="geometry">
           <rect>
            <x>500</x>
-           <y>140</y>
+           <y>100</y>
            <width>111</width>
            <height>31</height>
           </rect>
@@ -166,7 +166,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>40</y>
+           <y>10</y>
            <width>61</width>
            <height>31</height>
           </rect>
@@ -184,8 +184,8 @@
         <widget class="QPushButton" name="toggleUSB">
          <property name="geometry">
           <rect>
-           <x>10</x>
-           <y>70</y>
+           <x>130</x>
+           <y>10</y>
            <width>61</width>
            <height>31</height>
           </rect>
@@ -200,8 +200,8 @@
         <widget class="QPushButton" name="toggleLSB">
          <property name="geometry">
           <rect>
-           <x>70</x>
-           <y>70</y>
+           <x>190</x>
+           <y>10</y>
            <width>61</width>
            <height>31</height>
           </rect>
@@ -217,7 +217,7 @@
          <property name="geometry">
           <rect>
            <x>70</x>
-           <y>40</y>
+           <y>10</y>
            <width>61</width>
            <height>31</height>
           </rect>
@@ -232,8 +232,8 @@
         <widget class="QSpinBox" name="spinCenter">
          <property name="geometry">
           <rect>
-           <x>60</x>
-           <y>140</y>
+           <x>10</x>
+           <y>50</y>
            <width>151</width>
            <height>31</height>
           </rect>
@@ -252,7 +252,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>140</y>
+           <y>80</y>
            <width>51</width>
            <height>31</height>
           </rect>
@@ -264,8 +264,8 @@
         <widget class="QPushButton" name="toggleCW">
          <property name="geometry">
           <rect>
-           <x>70</x>
-           <y>100</y>
+           <x>310</x>
+           <y>10</y>
            <width>61</width>
            <height>31</height>
           </rect>
@@ -283,14 +283,14 @@
          </property>
          <property name="geometry">
           <rect>
-           <x>480</x>
-           <y>50</y>
+           <x>500</x>
+           <y>10</y>
            <width>111</width>
-           <height>41</height>
+           <height>31</height>
           </rect>
          </property>
          <property name="text">
-          <string>Transmit</string>
+          <string>TX</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -299,49 +299,364 @@
         <widget class="QPushButton" name="toggleRun">
          <property name="geometry">
           <rect>
-           <x>360</x>
-           <y>50</y>
+           <x>380</x>
+           <y>10</y>
            <width>111</width>
-           <height>41</height>
+           <height>31</height>
           </rect>
          </property>
          <property name="text">
-          <string>Receive</string>
+          <string>RX</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
          </property>
         </widget>
-        <widget class="QSlider" name="spinSlider">
+        <widget class="QPushButton" name="FP10">
          <property name="geometry">
           <rect>
-           <x>20</x>
-           <y>10</y>
-           <width>581</width>
-           <height>16</height>
+           <x>310</x>
+           <y>80</y>
+           <width>61</width>
+           <height>41</height>
           </rect>
          </property>
-         <property name="minimum">
-          <number>1000</number>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
          </property>
-         <property name="maximum">
-          <number>1500000000</number>
+         <property name="text">
+          <string>+10</string>
          </property>
-         <property name="singleStep">
-          <number>500</number>
+        </widget>
+        <widget class="QPushButton" name="FP1">
+         <property name="geometry">
+          <rect>
+           <x>370</x>
+           <y>80</y>
+           <width>61</width>
+           <height>41</height>
+          </rect>
          </property>
-         <property name="pageStep">
-          <number>10000</number>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
          </property>
-         <property name="value">
-          <number>125000000</number>
+         <property name="text">
+          <string>+1</string>
          </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+        </widget>
+        <widget class="QPushButton" name="FP100">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>80</y>
+           <width>61</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>+100</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="FM100">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>130</y>
+           <width>61</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>-100</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="FM10">
+         <property name="geometry">
+          <rect>
+           <x>310</x>
+           <y>130</y>
+           <width>61</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>-10</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="FM1">
+         <property name="geometry">
+          <rect>
+           <x>370</x>
+           <y>130</y>
+           <width>61</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>-1</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="VFOG">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>80</y>
+           <width>41</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>000</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="VFOM">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>80</y>
+           <width>41</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>000</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="VFOK">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>80</y>
+           <width>41</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>000</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="VFOH">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>80</y>
+           <width>41</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>false</underline>
+          </font>
+         </property>
+         <property name="text">
+          <string>000</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="FQM">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>110</y>
+           <width>41</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>000</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="FQK">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>110</y>
+           <width>41</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>000</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="FQG">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>110</y>
+           <width>41</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>000</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="FQH">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>110</y>
+           <width>41</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <underline>false</underline>
+          </font>
+         </property>
+         <property name="text">
+          <string>000</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="OFK">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>140</y>
+           <width>41</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>000</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="OFH">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>140</y>
+           <width>41</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>000</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="OFM">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>140</y>
+           <width>41</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>000</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
          </property>
         </widget>
        </widget>
-       <widget class="QWidget" name="widget">
+       <widget class="QWidget" name="tabRTL">
         <attribute name="title">
          <string>RTL</string>
         </attribute>
@@ -569,6 +884,99 @@
            <string>127</string>
           </property>
          </item>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="tabCW">
+        <attribute name="title">
+         <string>CW</string>
+        </attribute>
+        <widget class="QSpinBox" name="CWwpmtxt">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>10</y>
+           <width>31</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="frame">
+          <bool>true</bool>
+         </property>
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+         <property name="keyboardTracking">
+          <bool>true</bool>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>50</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
+         </property>
+         <property name="value">
+          <number>20</number>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_5">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>61</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>WPM:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_7">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>50</y>
+           <width>181</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Release time (ms):</string>
+         </property>
+        </widget>
+        <widget class="QSpinBox" name="CWrttxt">
+         <property name="geometry">
+          <rect>
+           <x>190</x>
+           <y>50</y>
+           <width>41</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="frame">
+          <bool>true</bool>
+         </property>
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+         <property name="keyboardTracking">
+          <bool>true</bool>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>50</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
+         </property>
+         <property name="value">
+          <number>20</number>
+         </property>
         </widget>
        </widget>
       </widget>
