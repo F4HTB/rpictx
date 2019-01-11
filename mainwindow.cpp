@@ -333,7 +333,9 @@ void MainWindow::modF(int value, QPushButton* pb){
 
 void MainWindow::on_shiftChanged(int newOffset)
 {
-    updateOFvalue(newOffset);setShift();
+    updateOFvalue(newOffset);
+    updateFQvalue(getVFOvalue()+newOffset);
+    setShift();
 }
 
 QString MainWindow::getDemodulatorCommand()
