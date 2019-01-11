@@ -68,6 +68,7 @@ int upconvvalue = 0;
 QFont fon( "SansSerif", 12, QFont::Bold);
 QFont foff( "SansSerif", 12, QFont::Normal);
 
+
 QPushButton* iFch;
 
 
@@ -98,9 +99,6 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         ui->toggleTransmit->setEnabled(true);
         ui->comboSampRate->setCurrentIndex(4);
-        //ui->spinOffset->setValue(100000);
-        //ui->spinCenter->setValue(28200000);
-        //ui->spinCenter->setValue(ui->spinSlider->value());
         //this->resize(this->width(),ui->tabWidgetControls->height()+350);
     }
 
@@ -146,6 +144,8 @@ MainWindow::MainWindow(QWidget *parent) :
     modsButtonsF.append(ui->OFM);
 
     iFch = ui->VFOH;
+    fon = ui->VFOH->font();
+    foff = ui->VFOG->font();
 
     connect(&tmrRead, SIGNAL(timeout()), this, SLOT(tmrRead_timeout()));
     connect(ui->widgetFFT, SIGNAL(shiftChanged(int)), this, SLOT(on_shiftChanged(int)));
@@ -240,29 +240,100 @@ void MainWindow::on_OFK_pressed() {untoggleOtherFbutton(ui->OFK);}
 void MainWindow::on_OFM_pressed() {untoggleOtherFbutton(ui->OFM);}
 
 
-void MainWindow::on_FP100_pressed(){modF(1,100,iFch);}
-void MainWindow::on_FP10_pressed(){modF(1,10,iFch);}
-void MainWindow::on_FP1_pressed(){modF(1,1,iFch);}
-void MainWindow::on_FM100_pressed(){modF(0,100,iFch);}
-void MainWindow::on_FM10_pressed(){modF(0,10,iFch);}
-void MainWindow::on_FM1_pressed(){modF(0,1,iFch);}
+void MainWindow::on_FP100_pressed(){modF(100,iFch);}
+void MainWindow::on_FP10_pressed(){modF(10,iFch);}
+void MainWindow::on_FP1_pressed(){modF(1,iFch);}
+void MainWindow::on_FM100_pressed(){modF(-100,iFch);}
+void MainWindow::on_FM10_pressed(){modF(-10,iFch);}
+void MainWindow::on_FM1_pressed(){modF(-1,iFch);}
 
-void MainWindow::modF(bool dir, int value, QPushButton* pb){
-    int valori = pb->text().toInt();
-    if(dir){
-        valori+=value;
-        if(valori > 999)valori=0;
-        pb->setText(QString::number(valori));
-    }else{
-        valori-=value;
-        if(valori < 0)valori=0;
-        pb->setText(QString::number(valori));
-    }
+
+void MainWindow::updateVFOvalue(int value){
+    QString QtotalVFO = QString::number(value);
+    for (int i=QtotalVFO.length(); i<12; i++) QtotalVFO = "0" + QtotalVFO;
+    ui->VFOG->setText(QtotalVFO.mid(0,3));
+    ui->VFOM->setText(QtotalVFO.mid(3,3));
+    ui->VFOK->setText(QtotalVFO.mid(6,3));
+    ui->VFOH->setText(QtotalVFO.mid(9,3));
 }
+
+void MainWindow::updateFQvalue(int value){
+    QString QtotalFQ = QString::number(value);
+    for (int i=QtotalFQ.length(); i<12; i++) QtotalFQ = "0" + QtotalFQ;
+    ui->FQG->setText(QtotalFQ.mid(0,3));
+    ui->FQM->setText(QtotalFQ.mid(3,3));
+    ui->FQK->setText(QtotalFQ.mid(6,3));
+    ui->FQH->setText(QtotalFQ.mid(9,3));
+}
+
+void MainWindow::updateOFvalue(int value){
+    QString QtotalOF = QString::number(value);
+    for (int i=QtotalOF.length(); i<12; i++) QtotalOF = " " + QtotalOF;
+    ui->OFM->setText(QtotalOF.mid(3,3));
+    ui->OFK->setText(QtotalOF.mid(6,3));
+    ui->OFH->setText(QtotalOF.mid(9,3));
+}
+
+int MainWindow::getVFOvalue(){
+    return (ui->VFOG->text()+ui->VFOM->text()+ui->VFOK->text()+ui->VFOH->text()).toInt();
+}
+
+int MainWindow::getFQvalue(){
+    return (ui->FQG->text()+ui->FQM->text()+ui->FQK->text()+ui->FQH->text()).toInt();
+}
+
+int MainWindow::getOFvalue(){
+    return (ui->OFM->text()+ui->OFK->text()+ui->OFH->text()).toInt();
+}
+
+void MainWindow::modF(int value, QPushButton* pb){
+
+    QString test = pb->objectName();
+    QChar c = test.at(0);
+    int chose = c.toLatin1();
+    c = test.at((test.length()-1));
+    int choseend = c.toLatin1();
+
+    printf("a %i\n",chose);
+    printf("b %i\n",choseend);
+
+    int totalVFO = getVFOvalue();
+    int totalFQ = getFQvalue();
+    int totalOF = getOFvalue();
+
+
+
+    switch(choseend) {
+        case 72 : value = value; break;
+        case 75 : value *= 1000; break;
+        case 77 : value *= 1000000; break;
+        case 69 : value *= 1000000000; break;
+    }
+
+    switch(chose) {
+        case 86 : totalVFO +=  value; totalFQ = totalVFO + totalOF; break;
+        case 70 : totalFQ +=  value; totalVFO =  totalFQ - totalOF; break;
+        case 79 : totalOF +=  value; totalFQ = totalVFO + totalOF;break;
+    }
+
+    updateVFOvalue(totalVFO);
+    updateFQvalue(totalFQ);
+    updateOFvalue(totalOF);
+
+    switch(chose) {
+        case 86 : sendCommand(RTLTCP_SET_FREQ, totalVFO+upconvvalue); break;
+        case 70 : sendCommand(RTLTCP_SET_FREQ, totalVFO+upconvvalue); break;
+        case 79 : setShift();break;
+    }
+
+
+}
+
+
 
 void MainWindow::on_shiftChanged(int newOffset)
 {
-    ui->spinOffset->setValue(newOffset);
+    updateOFvalue(newOffset);setShift();
 }
 
 QString MainWindow::getDemodulatorCommand()
@@ -297,10 +368,10 @@ QString MainWindow::getModulatorCommand()
         .replace("%ARECORDCMD%", CMD_ARECORD)
         .replace("%CWCMD%", CMD_CW)
         .replace("%ADEVICE%", (alsaDevice.isEmpty())?"":"-D "+alsaDevice)
-        .replace("%TXFREQ_AM%", QString::number((ui->spinFreq->value()+10000)/1000,'f',0))
-        .replace("%TXFREQ%", QString::number(ui->spinFreq->value()/1000,'f',0))
-        .replace("%TXFREQ_SSB%", QString::number((ui->spinFreq->value()+2000)/1000,'f',0))
-        .replace("%TXFREQ_CW%", QString::number((ui->spinFreq->value()+600),'f',0));
+        .replace("%TXFREQ_AM%", QString::number((getFQvalue()+10000)/1000,'f',0))
+        .replace("%TXFREQ%", QString::number(getFQvalue()/1000,'f',0))
+        .replace("%TXFREQ_SSB%", QString::number((getFQvalue()+2000)/1000,'f',0))
+        .replace("%TXFREQ_CW%", QString::number((getFQvalue()+600),'f',0));
     qDebug() << "myModCmd ="<<myModCmd;
     return myModCmd;
 }
@@ -308,7 +379,7 @@ QString MainWindow::getModulatorCommand()
 
 void MainWindow::updateFilterBw()
 {
-    ui->widgetFFT->offsetFreq = ui->spinOffset->value();
+    ui->widgetFFT->offsetFreq = getOFvalue();setShift();
     if(ui->toggleWFM->isChecked()) { ui->widgetFFT->filterLowCut=-70000; ui->widgetFFT->filterHighCut=70000; }
     if(ui->toggleNFM->isChecked()) { ui->widgetFFT->filterLowCut=-4000; ui->widgetFFT->filterHighCut=4000; }
     if(ui->toggleAM->isChecked())  { ui->widgetFFT->filterLowCut=-4000; ui->widgetFFT->filterHighCut=4000; }
@@ -344,9 +415,22 @@ void MainWindow::on_toggleRun_toggled(bool checked)
         QString FFTCommand = QString(CMD_FFT).replace("%FFT_READ_SIZE%", QString::number(ui->comboSampRate->currentText().toInt()/10));
         qDebug() << "FFTCommand" << FFTCommand;
         procFFT.start(FFTCommand);
-        on_spinFreq_valueChanged(ui->spinFreq->value());
+        //on_spinFreq_valueChanged(ui->spinFreq->value());
+        sendCommand(RTLTCP_SET_FREQ, getVFOvalue()+upconvvalue);
         on_comboDirectSamp_currentIndexChanged(0);
         updateFilterBw();
+
+        sendCommand(RTLTCP_SET_GAIN,ui->RTLGTXT->value()*10);
+
+        if(ui->RTLHAGC->isChecked())
+        {
+            sendCommand(RTLTCP_SET_TUNER_GAIN_MODE,1);
+        }
+        if(ui->RTLSAGC->isChecked())
+        {
+            sendCommand(RTLTCP_SET_AGC_MODE,1);
+        }
+
     }
     else
     {
@@ -381,9 +465,9 @@ void MainWindow::on_toggleTransmit_toggled(bool checked)
 
 void MainWindow::setShift()
 {
-    QString shiftString = QString::number(-ui->spinOffset->value()/(float)ui->comboSampRate->currentText().toInt())+"\n";
+    QString shiftString = QString::number(-((ui->OFM->text()+ui->OFK->text()+ui->OFH->text()).toInt())/(float)ui->comboSampRate->currentText().toInt())+"\n";
     write(fifoPipe,shiftString.toStdString().c_str(),shiftString.length());
-    ui->widgetFFT->offsetFreq = ui->spinOffset->value();
+    ui->widgetFFT->offsetFreq = ((ui->OFM->text()+ui->OFK->text()+ui->OFH->text()).toInt());
 }
 
 void MainWindow::sendCommand(unsigned char cmd_num, unsigned value)
@@ -465,54 +549,6 @@ void MainWindow::on_RTLGSlider_valueChanged(int val)
     ui->RTLGTXT->setValue(ui->RTLGSlider->value());
     sendCommand(RTLTCP_SET_GAIN,ui->RTLGTXT->value()*10);
 
-}
-
-/*void MainWindow::on_spinSlider_valueChanged(int val)
-{
-
-    Qt::MouseButtons btns = QApplication::mouseButtons();
-    QPoint localMousePos = ui->spinSlider->mapFromGlobal(QCursor::pos());
-    bool clickOnSlider = (btns & Qt::LeftButton) &&
-                         (localMousePos.x() >= 0 && localMousePos.y() >= 0 &&
-                          localMousePos.x() < ui->spinSlider->size().width() &&
-                          localMousePos.y() < ui->spinSlider->size().height());
-    if (clickOnSlider)
-    {
-        // Attention! The following works only for Horizontal, Left-to-right sliders
-        float posRatio = localMousePos.x() / (float )ui->spinSlider->size().width();
-        int sliderRange = ui->spinSlider->maximum() - ui->spinSlider->minimum();
-        int sliderPosUnderMouse = ui->spinSlider->minimum() + sliderRange * posRatio;
-
-            ui->spinSlider->setValue(sliderPosUnderMouse);
-
-    }
-
-
-     ui->spinCenter->setValue(ui->spinSlider->value());
-    //sendCommand(RTLTCP_SET_FREQ, (ui->spinCenter->value()+upconvvalue));
-    //procDemod.write("\x01\x05\x55\xa9\x60");
-    //procDemod.write("macska\n");
-}*/
-
-void MainWindow::on_spinFreq_valueChanged(int val)
-{
-    ui->spinCenter->setValue(ui->spinFreq->value()-ui->spinOffset->value());
-    //ui->spinSlider->setValue(ui->spinCenter->value());
-    sendCommand(RTLTCP_SET_FREQ, (ui->spinCenter->value()+upconvvalue));
-    //procDemod.write("\x01\x05\x55\xa9\x60");
-    //procDemod.write("macska\n");
-}
-
-void MainWindow::on_spinOffset_valueChanged(int arg1)
-{
-    setShift();
-    ui->spinFreq->setValue(ui->spinCenter->value()+ui->spinOffset->value());
-}
-
-void MainWindow::on_spinCenter_valueChanged(int arg1)
-{
-    sendCommand(RTLTCP_SET_FREQ, ui->spinCenter->value()+upconvvalue);
-    ui->spinFreq->setValue(ui->spinCenter->value()+ui->spinOffset->value());
 }
 
 void MainWindow::on_comboDirectSamp_currentIndexChanged(int index)

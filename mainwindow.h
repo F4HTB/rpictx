@@ -66,7 +66,6 @@ private slots:
     void on_toggleUSB_toggled(bool checked);
     void on_toggleLSB_toggled(bool checked);
     void on_toggleRun_toggled(bool checked);
-    void on_spinFreq_valueChanged(int val);
 
 
     void on_VFOH_pressed();
@@ -94,12 +93,6 @@ private slots:
     void setShift();
     void on_shiftChanged(int newOffset);
 
-    void on_spinOffset_valueChanged(int arg1);
-
-    void on_spinCenter_valueChanged(int arg1);
-
-
-
     void on_RTLGSlider_valueChanged(int arg1);
 
     void on_RTLHAGC_toggled(bool checked);
@@ -119,7 +112,14 @@ private:
     QList<QPushButton*> modsButtonsF;
     void untoggleOtherFbutton(QPushButton* pb);
 
-    void modF(bool dir, int value, QPushButton* pb);
+    void modF(int value, QPushButton* pb);
+
+    void updateVFOvalue(int value);
+    void updateFQvalue(int value);
+    void updateOFvalue(int value);
+    int getVFOvalue();
+    int getFQvalue();
+    int getOFvalue();
 
     void sendCommand(unsigned char cmd_num, unsigned value);
     QString getDemodulatorCommand();

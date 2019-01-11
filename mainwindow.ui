@@ -121,47 +121,6 @@
           <string>Offset:</string>
          </property>
         </widget>
-        <widget class="QSpinBox" name="spinFreq">
-         <property name="geometry">
-          <rect>
-           <x>460</x>
-           <y>50</y>
-           <width>151</width>
-           <height>31</height>
-          </rect>
-         </property>
-         <property name="maximum">
-          <number>1999999999</number>
-         </property>
-         <property name="singleStep">
-          <number>1000</number>
-         </property>
-         <property name="value">
-          <number>125200000</number>
-         </property>
-        </widget>
-        <widget class="QSpinBox" name="spinOffset">
-         <property name="geometry">
-          <rect>
-           <x>500</x>
-           <y>100</y>
-           <width>111</width>
-           <height>31</height>
-          </rect>
-         </property>
-         <property name="minimum">
-          <number>-1200000</number>
-         </property>
-         <property name="maximum">
-          <number>1200000</number>
-         </property>
-         <property name="singleStep">
-          <number>100</number>
-         </property>
-         <property name="value">
-          <number>200000</number>
-         </property>
-        </widget>
         <widget class="QPushButton" name="toggleWFM">
          <property name="geometry">
           <rect>
@@ -227,25 +186,6 @@
          </property>
          <property name="checkable">
           <bool>true</bool>
-         </property>
-        </widget>
-        <widget class="QSpinBox" name="spinCenter">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>50</y>
-           <width>151</width>
-           <height>31</height>
-          </rect>
-         </property>
-         <property name="maximum">
-          <number>1999999999</number>
-         </property>
-         <property name="singleStep">
-          <number>1000</number>
-         </property>
-         <property name="value">
-          <number>125000000</number>
          </property>
         </widget>
         <widget class="QLabel" name="label_3">
@@ -432,10 +372,11 @@
          <property name="font">
           <font>
            <pointsize>12</pointsize>
+           <underline>true</underline>
           </font>
          </property>
          <property name="text">
-          <string>000</string>
+          <string notr="true">000</string>
          </property>
          <property name="flat">
           <bool>true</bool>
@@ -453,10 +394,11 @@
          <property name="font">
           <font>
            <pointsize>12</pointsize>
+           <underline>true</underline>
           </font>
          </property>
          <property name="text">
-          <string>000</string>
+          <string notr="true">028</string>
          </property>
          <property name="flat">
           <bool>true</bool>
@@ -474,10 +416,11 @@
          <property name="font">
           <font>
            <pointsize>12</pointsize>
+           <underline>true</underline>
           </font>
          </property>
          <property name="text">
-          <string>000</string>
+          <string notr="true">000</string>
          </property>
          <property name="flat">
           <bool>true</bool>
@@ -497,11 +440,11 @@
            <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
-           <underline>false</underline>
+           <underline>true</underline>
           </font>
          </property>
          <property name="text">
-          <string>000</string>
+          <string notr="true">000</string>
          </property>
          <property name="flat">
           <bool>true</bool>
@@ -519,10 +462,11 @@
          <property name="font">
           <font>
            <pointsize>12</pointsize>
+           <underline>true</underline>
           </font>
          </property>
          <property name="text">
-          <string>000</string>
+          <string notr="true">028</string>
          </property>
          <property name="flat">
           <bool>true</bool>
@@ -540,10 +484,11 @@
          <property name="font">
           <font>
            <pointsize>12</pointsize>
+           <underline>true</underline>
           </font>
          </property>
          <property name="text">
-          <string>000</string>
+          <string notr="true">200</string>
          </property>
          <property name="flat">
           <bool>true</bool>
@@ -561,10 +506,11 @@
          <property name="font">
           <font>
            <pointsize>12</pointsize>
+           <underline>true</underline>
           </font>
          </property>
          <property name="text">
-          <string>000</string>
+          <string notr="true">000</string>
          </property>
          <property name="flat">
           <bool>true</bool>
@@ -582,11 +528,11 @@
          <property name="font">
           <font>
            <pointsize>12</pointsize>
-           <underline>false</underline>
+           <underline>true</underline>
           </font>
          </property>
          <property name="text">
-          <string>000</string>
+          <string notr="true">000</string>
          </property>
          <property name="flat">
           <bool>true</bool>
@@ -604,10 +550,11 @@
          <property name="font">
           <font>
            <pointsize>12</pointsize>
+           <underline>true</underline>
           </font>
          </property>
          <property name="text">
-          <string>000</string>
+          <string notr="true">200</string>
          </property>
          <property name="flat">
           <bool>true</bool>
@@ -625,10 +572,11 @@
          <property name="font">
           <font>
            <pointsize>12</pointsize>
+           <underline>true</underline>
           </font>
          </property>
          <property name="text">
-          <string>000</string>
+          <string notr="true">000</string>
          </property>
          <property name="flat">
           <bool>true</bool>
@@ -646,10 +594,11 @@
          <property name="font">
           <font>
            <pointsize>12</pointsize>
+           <underline>true</underline>
           </font>
          </property>
          <property name="text">
-          <string>000</string>
+          <string notr="true"/>
          </property>
          <property name="flat">
           <bool>true</bool>
